@@ -419,7 +419,7 @@
                 <button class="icon-btn">
                     <img src="logobendera.png" alt="Report Flag" class="nav-flag-pic">
                 </button>
-                <button class="icon-btn">
+                <button class="icon-btn" id="optionsBtn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="5" cy="12" r="2" fill="#111"/>
                         <circle cx="12" cy="12" r="2" fill="#111"/>
@@ -534,6 +534,7 @@
                     const promptDesc = document.querySelector('.prompt-desc');
                     promptTitle.innerHTML = `Kirim permintaan pesan ke<br>${user.nickname || user.uniqueId}`;
                     if (promptDesc) promptDesc.innerHTML = 'Kamu hanya bisa mengirim satu<br>pesan langsung sampai pengguna<br>membalas. Balasan dan reaksi Story<br>tidak dibatasi.';
+                    document.querySelector('.input-bar').style.display = 'flex';
 
                     document.querySelector('.nav-profile-pic').setAttribute('referrerpolicy', 'no-referrer');
                     document.querySelector('.nav-profile-pic').src = user.avatarMedium || user.avatarThumb;
@@ -619,6 +620,7 @@
             chatInputReal.value = '';
             chatInputReal.style.height = '44px';
             realSendBtn.style.display = 'none';
+            document.querySelector('.input-bar').style.display = 'none';
 
             // Scroll Chat to bottom
             const chatContainer = document.querySelector('.chat-container');
@@ -626,14 +628,22 @@
             chatInputReal.focus();
         });
 
-        // Clear messages when emoji button is clicked
-        const emojiBtn = document.querySelector('.emoji-btn');
-        if (emojiBtn) {
-            emojiBtn.addEventListener('click', () => {
+        // Clear messages when options button is clicked
+        const optionsBtn = document.getElementById('optionsBtn');
+        if (optionsBtn) {
+            optionsBtn.addEventListener('click', () => {
                 const messagesList = document.getElementById('messagesList');
                 if (messagesList) {
                     messagesList.innerHTML = '';
                 }
+                document.querySelector('.input-bar').style.display = 'flex';
+                
+                const promptTitle = document.querySelector('.prompt-title');
+                const promptDesc = document.querySelector('.prompt-desc');
+                const navUsername = document.querySelector('.nav-username').textContent;
+                
+                if (promptTitle) promptTitle.innerHTML = `Kirim permintaan pesan ke<br>${navUsername}`;
+                if (promptDesc) promptDesc.innerHTML = 'Kamu hanya bisa mengirim satu<br>pesan langsung sampai pengguna<br>membalas. Balasan dan reaksi Story<br>tidak dibatasi.';
             });
         }
     </script>
